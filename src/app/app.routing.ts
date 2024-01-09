@@ -10,14 +10,14 @@ import { InitialDataResolver } from 'app/app.resolvers';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'
-    {path: '', pathMatch : 'full', redirectTo: 'example'},
+    {path: '', pathMatch : 'full', redirectTo: 'dashboards/pis'},
 
     // Redirect signed in user to the '/example'
     //
     // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'example'},
+    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'dashboards/pis'},
 
     // Auth routes for guests
     {
@@ -74,7 +74,28 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children   : [
-            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
+
+            // Admin
+            {path: 'admins', children: [
+                {path: 'accounts', loadChildren: () => import('app/modules/admins/admins.module').then(m => m.AdminsModule)}
+            ]},
+
+            // Dashboards
+            {path: 'dashboards', children: [
+                {path: 'pis', loadChildren: () => import('app/modules/pis-dashboard/pis-dashboard.module').then(m => m.PISDashboardModule)}
+            ]},
+
+            // User
+            {path: 'user', children: [
+                {path: 'request', loadChildren: () => import('app/modules/user/user.module').then(m => m.UserRequestModule)}
+            ]},
+
+            // Settings
+            {path: 'settings', children: [
+                {path: 'master-data', loadChildren: () => import('app/modules/settings/settings.module').then(m => m.MasterSettingsModule)}
+            ]},
+
+            // {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
         ]
     }
 ];
