@@ -1,0 +1,52 @@
+
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="dialog-header m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start">
+                <span class="title dialog-title"> Product Request Form </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button
+                    mat-icon-button
+                    (click)="onCloseClick()"
+                    aria-label="Close dialog"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="dialog-content p-8">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field fxFlex>
+                <mat-label class="mat-label">Product Code</mat-label>
+                <input
+                    matInput
+                    required
+                />
+                <mat-icon matSuffix class="secondary-text">money</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field fxFlex>
+                <mat-label class="mat-label">Description</mat-label>
+                <textarea 
+                    matInput
+                    required
+                ></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+            <button
+                mat-raised-button
+                color="accent"
+            >
+                <mat-icon>save</mat-icon>
+                <span class="btn-label"> Save </span>
+            </button>
+        </div>
+    </div>
+</div>

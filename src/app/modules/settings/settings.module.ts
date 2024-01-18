@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { SettingsModule } from 'app/layout/common/settings/settings.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { MasterSettingsComponent } from './settings.component';
-import { ProductListComponent } from './product-list/product-list.component';
 import { CompanyListComponent } from './company/company.component';
 import { DowntimeGuideListComponent } from './downtime/downtime.component';
 import { Route, RouterModule } from '@angular/router';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductRequestComponent } from './product-list/product-add/product-add.component';
+import { UISharedModule } from '@employee/UIShared.module';
 
 const routes: Route[]= [
     {
@@ -32,16 +32,20 @@ const routes: Route[]= [
 @NgModule({
     declarations: [
         MasterSettingsComponent,
+
         ProductListComponent,
+        ProductRequestComponent,
+
         CompanyListComponent,
         DowntimeGuideListComponent
     ],
     imports: [
-        MatIconModule,
-        MatTooltipModule,
         FuseDrawerModule,
         SharedModule,
         SettingsModule,
+
+        // Created Shared Components Modules
+        UISharedModule,
 
         RouterModule.forChild(routes),
     ]
