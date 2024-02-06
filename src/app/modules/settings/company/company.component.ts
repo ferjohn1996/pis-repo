@@ -1,9 +1,8 @@
-import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ProductClassification } from '@employee/models/product.model';
+import { ProductsService } from '@employee/services/products.service';
+import { result } from 'lodash';
 import { Subject } from 'rxjs';
-import { FuseConfigService } from '@fuse/services/config';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 
 @Component({
     selector     : 'company',
@@ -13,19 +12,14 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 })
 export class CompanyListComponent implements OnInit, OnDestroy
 { 
+    products: ProductClassification[] = [];
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
      * Constructor
      */
-    constructor(
-        private _activatedRoute: ActivatedRoute,
-        @Inject(DOCUMENT) private _document: any,
-        private _renderer2: Renderer2,
-        private _router: Router,
-        private _fuseConfigService: FuseConfigService,
-        private _fuseMediaWatcherService: FuseMediaWatcherService
-    )
+    constructor( private productClassification: ProductsService )
     {
     }
 
@@ -38,7 +32,9 @@ export class CompanyListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        
+        this.productClassification
+            .getProductClassification()
+            .subscribe((result: ProductClassification []) => (this.products = result));
     }
 
     /**

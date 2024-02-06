@@ -3,7 +3,7 @@
     <mat-toolbar matDialogTitle class="dialog-header m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start">
-                <span class="title dialog-title"> PRODUCT REQUEST FORM </span>
+                <span class="title dialog-title"> PRODUCT CLASSIFICATION EDIT FORM </span>
             </div>
             <div fxLayout="row" fxLayoutAlign="end">
                 <button
@@ -25,8 +25,9 @@
                     <input
                         matInput
                         class="text-area"
+                        [readonly]="true"
                         formControlName="code"
-                        required
+                        [(ngModel)]="productCode"
                     />
                     <mat-icon matSuffix class="secondary-text">money</mat-icon>
                 </mat-form-field>
@@ -39,7 +40,7 @@
                         matInput
                         class="text-area"
                         formControlName="description"
-                        required
+                        [(ngModel)]="productDescription"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -47,12 +48,11 @@
             <div fxLayout="row" fxLayoutAlign="end center">
                 <button
                     mat-raised-button
-                    type="submit" 
-                    [disabled]="postDataForm.invalid"
+                    type="submit"
                     color="accent"
                 >
                     <mat-icon>save</mat-icon>
-                    <span class="btn-label"> Save </span>
+                    <span class="btn-label"> Update </span>
                 </button>
             </div>
         </form>

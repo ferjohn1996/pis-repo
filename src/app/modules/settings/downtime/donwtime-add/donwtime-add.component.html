@@ -3,7 +3,7 @@
     <mat-toolbar matDialogTitle class="dialog-header m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start">
-                <span class="title dialog-title"> PRODUCT REQUEST FORM </span>
+                <span class="title dialog-title"> DOWNTIME GUIDE REQUEST FORM </span>
             </div>
             <div fxLayout="row" fxLayoutAlign="end">
                 <button
@@ -21,11 +21,11 @@
         <form [formGroup]="postDataForm" (ngSubmit)="onSubmit()">
             <div fxLayout="row" fxLayoutAlign="space-between">
                 <mat-form-field fxFlex>
-                    <mat-label class="mat-label">Product Code</mat-label>
+                    <mat-label class="mat-label">Classification</mat-label>
                     <input
                         matInput
                         class="text-area"
-                        formControlName="code"
+                        formControlName="classification"
                         required
                     />
                     <mat-icon matSuffix class="secondary-text">money</mat-icon>
@@ -39,9 +39,26 @@
                         matInput
                         class="text-area"
                         formControlName="description"
+                        rows="4"
                         required
                     ></textarea>
                 </mat-form-field>
+            </div>
+    
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <mat-form-field fxFlex>
+                    <mat-label class="mat-label">Accountability</mat-label>
+                    <mat-select
+                        class="text-area"
+                        formControlName="accountability"
+                        required
+                    >
+                        <mat-option [value]="'Cargill'"> Cargill </mat-option>
+                        <mat-option [value]="'SFC'"> SFC </mat-option>
+                        <mat-option [value]="'Monitoring'"> Monitoring </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
             </div>
     
             <div fxLayout="row" fxLayoutAlign="end center">

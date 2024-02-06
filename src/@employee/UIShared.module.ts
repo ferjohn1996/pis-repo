@@ -28,6 +28,8 @@ import { SharedModule } from "app/shared/shared.module";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatButtonModule } from "@angular/material/button";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { HttpClientModule } from "@angular/common/http";
+import { FuseConfirmDialogModule } from "@fuse/components/confirm-dialog/confirm-dialog.module";
 
 @NgModule({
     imports: [
@@ -56,7 +58,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
         SharedModule,
         MatRadioModule,
         MatDividerModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+
+        HttpClientModule,
+        FuseConfirmDialogModule
     ],
     exports: [
         CommonModule,
@@ -85,7 +90,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
         MatRadioModule,
         MatCardModule,
         MatDividerModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+
+        HttpClientModule,
+        FuseConfirmDialogModule
     ]
 })
 export class UISharedModule { }

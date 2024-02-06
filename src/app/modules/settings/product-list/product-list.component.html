@@ -10,6 +10,7 @@
         <div 
             fxLayout="row" 
             fxLayoutAlign="start center"
+            fxFlex="70"
         >
             <span class="header-title"> Product Information Lists </span>
         </div>
@@ -17,13 +18,36 @@
         <div 
             fxLayout="row" 
             fxLayoutAlign="end center"
+            fxFlex="30"
         >
-            <button 
-                mat-raised-button 
-                (click)="openAddProductDialog()"
+            <div 
+                class="search-wrapper"
+                fxLayout="row"
+                fxLayoutAlign="start"
+                fxFlex="80"
             >
-                Add Product
-            </button>
+                <mat-form-field class="search-form" fxFlex="100">
+                    <input 
+                        matInput 
+                        placeholder="Search Product"
+                        (input)="applyFilter($event.target.value)"
+                    />
+                    <mat-icon matSuffix class="secondary-text">search</mat-icon>
+                </mat-form-field>
+            </div>
+            <div
+                fxLayout="row"
+                fxLayoutAlign="end center"
+                fxFlex="20"
+            >
+                <button 
+                    mat-raised-button 
+                    (click)="openAddProductDialog()"
+                >
+                    <mat-icon>playlist_add</mat-icon>
+                    <span class="btn-label" fxHide fxShow.gt-sm> Add </span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -37,30 +61,44 @@
                     *ngIf="isLoadingResults"
                     mode="indeterminate"
                 ></mat-progress-bar> -->
-                <mat-table [dataSource]="dataSource">
+                <mat-table 
+                    [dataSource]="dataSource"
+                    matSort
+                    matSortActive="columnName" 
+                    matSortDirection="asc"
+                >
                     <!-- ID Column -->
                     <ng-container matColumnDef="id">
-                        <mat-header-cell *matHeaderCellDef> NO. </mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> NO. </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
                     </ng-container>
                   
                     <!-- Code Column -->
                     <ng-container matColumnDef="code">
-                        <mat-header-cell *matHeaderCellDef> PRODUCT CODE </mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> PRODUCT CODE </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
                     </ng-container>
                   
                     <!-- Description Column -->
                     <ng-container matColumnDef="description">
-                        <mat-header-cell *matHeaderCellDef> DESCRIPTION </mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPTION </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                    </ng-container>
+
+                    <!-- CREATED DATETIME Column -->
+                    <ng-container matColumnDef="createdDateTime">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DATE CREATED
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let employee">
+                            {{ employee.createdDateTime | date:'short' }}
+                        </mat-cell>
                     </ng-container>
       
                     <!-- Actions Column -->
                     <ng-container matColumnDef="actions">
                         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                         <mat-cell
-                            *matCellDef="let employee"
+                            *matCellDef="let element"
                             (click)="$event.stopPropagation()"
                         >
                             <div
@@ -69,8 +107,16 @@
                             >
                                 <button
                                     mat-icon-button
+                                    (click)="openEditProductDialog(element)"
                                 >
-                                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                                    <mat-icon class="secondary-text">edit</mat-icon>
+                                </button>
+
+                                <button
+                                    mat-icon-button
+                                    (click)="deleteProductClass(element.id)"
+                                >
+                                    <mat-icon class="secondary-text">delete_forever</mat-icon>
                                 </button>
                             </div>
                         </mat-cell>

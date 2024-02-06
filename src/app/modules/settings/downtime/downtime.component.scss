@@ -1,0 +1,120 @@
+@import "src/@fuse/scss/fuse";
+
+downtime {
+  #view-main {
+    width: 100%;
+
+    .header {
+      height: auto !important;
+      min-height: 70px;
+      max-height: 70px;
+      background-color: white;
+      padding: 1.5rem;
+      border-bottom: 1px;
+
+        .header-title {
+          font-size: large;
+          font-weight: bold;
+        }
+
+        .search-wrapper {
+          margin-right: 10px;
+          
+            .search-form {
+              margin-top: 18px;
+              
+              input {
+                max-width: 300px;
+                font-size: 12px;
+              }
+            }
+
+        }
+
+        .btn-label {
+          margin-left: 2px;
+          font-size: 11px;
+        }
+
+    }
+
+    .center {
+
+      /* Structure */
+      .content-body {
+          position: relative;
+          width: 100%;
+      }
+      
+      .content-table-container {
+          position: relative;
+          width: 100%;
+      }
+      
+      mat-table {
+          width: 100%;
+          height: calc(100vh - 260px);
+          overflow: auto;
+      }
+
+      // .mat-header-row {
+      //     min-height: 50px;
+      //     min-width: 1200px;
+      //     width: 100%;
+      // }
+
+      .mat-row {
+          position: relative;
+          cursor: pointer;
+          // min-height: 38px;
+          // min-width: 1200px;
+          // width: 100%;
+      }
+
+      .mat-cell {
+          min-width: 0;
+          display: flex;
+          font-size: 10px;
+      }
+
+      // .mat-header-cell {
+      //     font-size: 11px;
+      //     font-weight: bold;
+      // }
+
+      .mat-paginator {
+        border: 1px solid #cdd0d2;
+      }
+
+      /* Column Widths */
+      .mat-column-id {
+          flex: 0 1 65px;
+          border-right: 1px solid #cdd0d2;
+          text-align: center;
+      }
+
+      .mat-column-classification {
+          flex: 0 1 170px;
+          padding-left: 20px;
+      }
+
+      .mat-column-description {
+          flex: 0 1 600px;
+      }
+
+      .mat-column-accountability {
+        flex: 0 1 150px;
+      }
+
+      .mat-column-createdDateTime {
+        flex: 0 1 140px;
+      }
+
+      .mat-column-actions {
+          justify-content: flex-end;
+      }
+    }
+  }
+  
+}
+

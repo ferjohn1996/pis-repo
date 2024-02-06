@@ -100,12 +100,12 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         type : 'basic',
                         link : '/settings/master-data/downtime'
                     },
-                    {
-                        id   : 'company',
-                        title: 'Company',
-                        type : 'basic',
-                        link : '/settings/master-data/company'
-                    }
+                    // {
+                    //     id   : 'company',
+                    //     title: 'Company',
+                    //     type : 'basic',
+                    //     link : '/settings/master-data/company'
+                    // }
                 ]
             }
         ]

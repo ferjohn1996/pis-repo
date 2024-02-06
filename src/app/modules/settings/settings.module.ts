@@ -9,6 +9,11 @@ import { Route, RouterModule } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductRequestComponent } from './product-list/product-add/product-add.component';
 import { UISharedModule } from '@employee/UIShared.module';
+import { DowntimeGuideRequestComponent } from './downtime/donwtime-add/donwtime-add.component';
+import { ProductsService } from '@employee/services/products.service';
+import { ProductUpdateComponent } from './product-list/product-edit/product-edit.component';
+import { DowntimeGuideService } from '@employee/services/downtime.service';
+import { DowntimeGuideEditComponent } from './downtime/donwtime-edit/donwtime-edit.component';
 
 const routes: Route[]= [
     {
@@ -35,9 +40,13 @@ const routes: Route[]= [
 
         ProductListComponent,
         ProductRequestComponent,
+        ProductUpdateComponent,
+        
+        DowntimeGuideListComponent,
+        DowntimeGuideRequestComponent,
+        DowntimeGuideEditComponent,
 
         CompanyListComponent,
-        DowntimeGuideListComponent
     ],
     imports: [
         FuseDrawerModule,
@@ -48,6 +57,10 @@ const routes: Route[]= [
         UISharedModule,
 
         RouterModule.forChild(routes),
+    ],
+    providers: [
+        ProductsService,
+        DowntimeGuideService
     ]
 })
 export class MasterSettingsModule

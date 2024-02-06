@@ -1,9 +1,14 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { ProductRequestComponent } from './product-add/product-add.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ProductsService } from '@employee/services/products.service';
+import { ProductUpdateComponent } from './product-edit/product-edit.component';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
     selector     : 'product-list',
@@ -11,37 +16,72 @@ import { MatPaginator } from '@angular/material/paginator';
     styleUrls    : ['./product-list.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ProductListComponent implements AfterViewInit {
-    displayedColumns: string[] = ['id', 'code', 'description', 'actions'];
-    dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+export class ProductListComponent implements OnInit, OnDestroy {
+    displayedColumns: string[] = [
+        'id', 
+        'code', 
+        'description', 
+        'createdDateTime', 
+        'actions'
+    ];
+    dataSource = new MatTableDataSource<any>();
 
+    @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     isLoadingResults: boolean = true;
-    
+
     action: string;
     title: string;
 
+    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
      * Constructor
      */
-    constructor( public dialog: MatDialog )
-    {
-
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+    constructor 
+    ( 
+        public dialog: MatDialog,
+        private _productService: ProductsService
+    )
+    { }
 
     /**
      * On init
      */
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
+    ngOnInit(): void
+    {
+        // Get Product Classification List
+        // this._productService.getProductClassification()
+        //     .subscribe((data) => {
+        //         this.dataSource.data = data;
+        //         this.dataSource.paginator = this.paginator;
+        //         this.dataSource.sort = this.sort;
+        //     });
+
+        this._productService.getProductClassification('desc')
+            .subscribe((data) => {
+                this.dataSource.data = data;
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            });
+    }
+
+    /**
+     * On destroy
+     */
+    ngOnDestroy(): void
+    {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
+    }
+
+    applyFilter(value: string): void {
+        value = value.trim().toLowerCase();
+        this.dataSource.filter = value;
     }
 
     openAddProductDialog(): void {
@@ -55,32 +95,53 @@ export class ProductListComponent implements AfterViewInit {
         });
     
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
+        //   console.log('The dialog was closed');
           this.title = result;
         });
     }
-}
 
-export interface PeriodicElement {
-    code: string;
-    id: number;
-    description: string;
+    openEditProductDialog(product): void {
+        const dialogRef = this.dialog.open(ProductUpdateComponent, {
+            panelClass: 'forms-dialog',
+            width: '550px',
+            data: {
+                action: 'new',
+                title: 'Product Request',
+                product: product
+            },
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+        //   console.log('The dialog was closed');
+          this.title = result;
+        });
+    }
+
+    deleteProductClass(productId): void {
+        this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
+            disableClose: false
+        });
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this product?';
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                const id = productId;
+                this._productService.deleteProductClassification(id)
+                    .subscribe((response) => {
+                        Swal.fire({
+                            title: "Success",
+                            text: `Deleted successfully.`,
+                            icon: "success",
+                            showConfirmButton: true,
+                            confirmButtonColor: '#4CAF50',
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
+                    });
+            }
+            this.confirmDialogRef = null;
+        });
+    }
 }
-  
-const ELEMENT_DATA: PeriodicElement[] = [
-    {id: 1, code: '2165', description: 'PURINA BLENDINA HOG GROWER CONC.'},
-    {id: 2, code: '2365', description: 'HOGI PLUS GROWER'},
-    {id: 3, code: '2372', description: 'PURINA HOGI PLUS HOG FINISHER'},
-    {id: 4, code: '2472', description: 'PURINA BLENDINA HOG SOW CONCENTRATE.'},
-    {id: 5, code: '2765', description: 'HOGI BROOD SOW PELLET'},
-    {id: 6, code: '2772', description: 'HOGI PLUS SOW LACTATION'},
-    {id: 7, code: '2972', description: 'PROFARM PIG BOOSTER'},
-    {id: 8, code: '3004', description: 'PROFARM PIG PRESTARTER'},
-    {id: 9, code: '3054', description: 'PREMIUM NUTRI DELI HOG STARTER'},
-    {id: 10, code: '3150', description: 'PURINA TURBO HOG STARTINA'},
-    {id: 11, code: '3152', description: 'PROFARM HOG STARTER'},
-    {id: 12, code: '3154', description: 'PREMIUM NUTRI DELI HOG GROWER'},
-    {id: 13, code: '3350', description: 'TURBO HOG GROWINA'},
-    {id: 14, code: '3352', description: 'PROFARM HOG GROWER'},
-    {id: 15, code: '3354', description: 'PREMIUM BUTRI DELI HOG FINISHER'},
-];
