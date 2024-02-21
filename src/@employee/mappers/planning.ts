@@ -11,6 +11,7 @@ export const APIPlanningLine1Mappers = (data: Line) => {
     return {
         id: data.id,
         planningId: data.planningId,
+        planningRequestId: data.planningRequestId,
         sku: data.sku,
         description: data.description,
         form: data.form,

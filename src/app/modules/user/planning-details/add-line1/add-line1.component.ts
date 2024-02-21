@@ -30,6 +30,8 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
     productId: number;
     description: string;
 
+    planningId: number;
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -40,8 +42,7 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
 
         private fb: FormBuilder, 
-        private _planningService: PlanningService,
-        private _productService: ProductsService
+        private _planningService: PlanningService
     )
     {
         this._planningService.getProductForOptions()
@@ -51,6 +52,7 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
 
         this.postDataForm = this.fb.group({
             planningId: [''],
+            planningRequestId: [''],
             sku: [''],
             description: [''],
             form: [''],
@@ -84,16 +86,6 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
-
-    // onProductSelectionChange(selectedProductId: number): void {
-    //     const selectedProduct = this.productModel.find(product => product.id === selectedProductId) as ProductClassificationList;
-    //     if (selectedProduct) {
-    //         this.description = selectedProduct.description;
-    //     } else {
-    //         // Handle the case when no product is found for the selected ID
-    //         this.description = ''; // Or any default value you want to set
-    //     }
-    // }
 
     onProductSelectionChange(productId: number): void {
         this._planningService.getProducIdOptions(productId)
