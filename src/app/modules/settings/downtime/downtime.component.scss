@@ -3,118 +3,202 @@
 downtime {
   #view-main {
     width: 100%;
+    //background-color: whitesmoke;
 
-    .header {
-      height: auto !important;
-      min-height: 70px;
-      max-height: 70px;
-      background-color: white;
-      padding: 1.5rem;
-      border-bottom: 1px;
+    .full-container {
+      width: 100%;
 
-        .header-title {
-          font-size: large;
-          font-weight: bold;
+      .content {
+        border: 1.5px 0px 0px 0px solid #cdd0d2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex: 0 1 auto;
+        height: calc(100vh - 120px);
+        overflow: auto;
+        background-color: white;
+
+        @include media-breakpoint(gt-sm) {
+            @include mat-elevation(1);
         }
 
-        .search-wrapper {
-          margin-right: 10px;
-          
-            .search-form {
-              margin-top: 18px;
+        .content-header {
+          padding: 0rem 0rem 0rem 1rem;
+          border-bottom: 1px solid #cdd0d2;
+          height: auto !important;
+          min-height: 80px;
+          max-height: 80px;
+
+          .title {
+
+            .title-details {
+                font-size: 15px;
+                font-weight: bold;
+                font-style: italic;
+            }
+          }
+
+          .action-header {
+
+            .search-wrapper {
+              width: 100%;
+              max-width: 350px;
+              height: 40px;
+              margin-right: 10px;
+              border-radius: 28px;
+              border-top: 1px solid #cdd0d2;
+              border-left: 1px solid #cdd0d2;
+              border-right: 1px solid #cdd0d2;
+              overflow: hidden;
+              background-color: white;
               
-              input {
-                max-width: 300px;
-                font-size: 12px;
+              @include media-breakpoint(gt-sm) {
+                @include mat-elevation(1);
+              }
+
+              .search {
+                  
+                input {
+                  width: 100%;
+                  height: 38px;
+                  min-height: 38px;
+                   max-height: 38px;
+                  padding: 0 15px;
+                  border: none;
+                  outline: none;
+                  font-size: 11px;
+                  margin-right: 10px;
+                  border-right: 1px solid #cdd0d2;
+                }
+
+                mat-icon {
+                  margin-right: 10px;
+                }
               }
             }
 
+            .margin-export {
+              padding: 1rem 0px 1rem 0px;
+              border-left: 1px solid #cdd0d2;
+              cursor: pointer;
+
+              .span-text {
+                font-size: 9px;
+              }
+            }
+
+            .margin-delete {
+              padding: 1rem 0px 1rem 0px;
+              border-left: 1px solid #cdd0d2;
+              cursor: pointer;
+
+              .span-text {
+                font-size: 9px;
+              }
+            }
+
+            .margin-add {
+              padding: 1rem 3px 1rem 3px;
+              border-left: 1px solid #cdd0d2;
+              cursor: pointer;
+
+              .span-text {
+                font-size: 9px;
+              }
+            }
+          }
         }
 
-        .btn-label {
-          margin-left: 2px;
-          font-size: 11px;
+        /* Structure */
+        .content-body {
+          position: relative;
+          width: 100%;
         }
-
-    }
-
-    .center {
-
-      /* Structure */
-      .content-body {
+        
+        .content-table-container {
           position: relative;
           width: 100%;
-      }
-      
-      .content-table-container {
-          position: relative;
+        }
+        
+        mat-table {
           width: 100%;
-      }
-      
-      mat-table {
-          width: 100%;
-          height: calc(100vh - 260px);
+          height: calc(100vh - 274px);
           overflow: auto;
-      }
+        }
 
-      // .mat-header-row {
-      //     min-height: 50px;
-      //     min-width: 1200px;
-      //     width: 100%;
-      // }
+        // .mat-header-row {
+        //     min-height: 50px;
+        //     min-width: 1200px;
+        //     width: 100%;
+        // }
 
-      .mat-row {
+        .mat-row {
           position: relative;
           cursor: pointer;
-          // min-height: 38px;
+          min-height: 35px;
           // min-width: 1200px;
           // width: 100%;
-      }
+        }
 
-      .mat-cell {
+        .mat-cell {
           min-width: 0;
           display: flex;
           font-size: 10px;
-      }
+        }
 
-      // .mat-header-cell {
-      //     font-size: 11px;
-      //     font-weight: bold;
-      // }
+        // .mat-header-cell {
+        //     font-size: 11px;
+        //     font-weight: bold;
+        // }
 
-      .mat-paginator {
-        border: 1px solid #cdd0d2;
-      }
+        .mat-paginator {
+          border: 1px solid #cdd0d2;
+        }
 
-      /* Column Widths */
-      .mat-column-id {
-          flex: 0 1 65px;
-          border-right: 1px solid #cdd0d2;
-          text-align: center;
-      }
+        /* Column Widths */
+        .mat-column-checkbox {
+          flex: 0 1 50px;
+          justify-content: left;
+          padding-right: 10px;
+        }
 
-      .mat-column-classification {
+        .mat-column-id {
+          flex: 0 1 40px;
+        }
+
+        .mat-column-classification {
           flex: 0 1 170px;
           padding-left: 20px;
-      }
+        }
 
-      .mat-column-description {
-          flex: 0 1 600px;
-      }
+        .mat-column-description {
+          flex: 0 1 550px;
+        }
 
-      .mat-column-accountability {
-        flex: 0 1 150px;
-      }
+        .mat-column-accountability {
+          flex: 0 1 140px;
+        }
 
-      .mat-column-createdDateTime {
-        flex: 0 1 140px;
-      }
+        .mat-column-createdDateTime {
+          flex: 0 1 130px;
+        }
 
-      .mat-column-actions {
+        .mat-column-actions {
           justify-content: flex-end;
+        }
+
+        .btn-remove {
+          color: red;
+          cursor: pointer;
+        }
+
+        .btn-edit{
+          color: darkolivegreen;
+          cursor: pointer;
+        }
+
       }
     }
   }
-  
 }
 

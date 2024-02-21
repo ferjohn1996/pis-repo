@@ -1,0 +1,286 @@
+<div id="view-main">
+    <div 
+        class="full-container"
+        fxLayout="row"
+    >
+        <div 
+            class="content"
+            fxLayout="column" 
+        >
+            <div 
+                fxLayout="column"
+                fxLayoutAlign="space-between"
+            >
+                <div
+                    class="content-headers"
+                    fxLayout="row"
+                    fxLayoutAlign="space-between"
+                >
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <button 
+                            mat-icon-button
+                            (click)="onClickBack()"
+                        >
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <span class="employee-details"> #{{ planningBatchId }} </span>
+                    </div>
+
+                    <div fxLayout="column" fxLayoutAlign="start center">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <span class="text-class">Created By:</span> <span></span>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <span class="text-class">Modified By</span> <span></span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div
+                    class="content-body"
+                    fxLayout="column"
+                    fxLayoutAlign="start center"
+                >
+                    <div 
+                        fxLayout="row"
+                        fxLayoutAlign="start center" 
+                        class="content-line1"
+                    >
+                        <div id="new_list_table" class="material_table_address card mt-8">
+                            <div class="material_table_address_card">
+                                <div
+                                    class="line-header"
+                                    fxLayout="row"
+                                    fxLayoutAlign="space-between"
+                                >
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <span class="line"> LINE 1 </span>
+                                    </div>
+
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <button
+                                            mat-icon-button
+                                            (click)="openAddLine1Dialog()"
+                                        >
+                                            <mat-icon> add_circle_outline </mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <!-- <th style="width: 70px"> Planning ID </th> -->
+                                            <th class="class-th" style="width: 50px"> SKU </th>
+                                            <th class="class-th" style="width: 350px"> DESCRIPTION </th>
+                                            <th class="class-th" style="width: 50px"> FORM </th>
+                                            <th class="class-th" style="width: 50px"> MT </th>
+                                            <th class="class-th" style="width: 50px"> ACTUAL </th>
+                                            <th class="class-th" style="width: 50px"> EFF. CAP </th>
+                                            <th class="class-th" style="width: 150px"> DIE SIZE / THICKNESS </th>
+                                            <th class="class-th" style="width: 100px"> CHANGE-OVER </th>
+                                            <th class="class-th" style="width: 100px"> UNCONTROLLABLE </th>
+                                            <th class="class-th" style="width: 50px"> CARGILL </th>
+                                            <th class="class-th" style="width: 50px"> SFC </th>
+                                            <th class="class-th" style="width: 50px"> TIME TO PRODUCE </th>
+                                            <th class="class-th" style="width: 300px"> REMARKS </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container>
+                                            <tr *ngFor="let planning of planningLine1; let i = index">
+                                                <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
+                                                <td style="width: 50px">{{ planning.sku }}</td>
+                                                <td style="width: 350px">{{ planning.description }}</td>
+                                                <td style="width: 50px">{{ planning.form }}</td>
+                                                <td style="width: 50px">{{ planning.mt }}</td>
+                                                <td style="width: 50px">{{ planning.actualHours }}</td>
+                                                <td style="width: 50px">{{ planning.effectiveCapacity }}</td>
+                                                <td style="width: 150px">{{ planning.dieSizeThickness }}</td>
+                                                <td style="width: 100px">{{ planning.changeOver }}</td>
+                                                <td style="width: 100px">{{ planning.uncontrollable }}</td>
+                                                <td style="width: 50px">{{ planning.accountability }}</td>
+                                                <td style="width: 50px">{{ planning.delayStatus }}</td>
+                                                <td style="width: 50px">{{ planning.timeProduce }}</td>
+                                                <td style="width: 300px">{{ planning.remarks }}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                                <div
+                                    *ngIf="!lineTable1.length"
+                                    class="line-footer"
+                                    fxLayout="row"
+                                    fxLayoutAlign="center center"
+                                >
+                                    <div 
+                                        fxLayout="column" 
+                                        fxLayoutAlign="center center"
+                                    >
+                                        <img class="no-data-img" src="assets/images/logo/no-data.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-line2">
+                        <div id="new_list_table" class="material_table_address card mt-8">
+                            <div class="material_table_address_card">
+                                <div
+                                    class="line-header"
+                                    fxLayout="row"
+                                    fxLayoutAlign="space-between"
+                                >
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <span class="line"> LINE 2 </span>
+                                    </div>
+
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <button
+                                            mat-icon-button
+                                        >
+                                            <mat-icon> add_circle_outline </mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <!-- <th style="width: 70px"> Planning ID </th> -->
+                                            <th class="class-th" style="width: 50px"> SKU </th>
+                                            <th class="class-th" style="width: 350px"> DESCRIPTION </th>
+                                            <th class="class-th" style="width: 50px"> FORM </th>
+                                            <th class="class-th" style="width: 50px"> MT </th>
+                                            <th class="class-th" style="width: 50px"> ACTUAL </th>
+                                            <th class="class-th" style="width: 50px"> EFF. CAP </th>
+                                            <th class="class-th" style="width: 150px"> DIE SIZE / THICKNESS </th>
+                                            <th class="class-th" style="width: 100px"> CHANGE-OVER </th>
+                                            <th class="class-th" style="width: 100px"> UNCONTROLLABLE </th>
+                                            <th class="class-th" style="width: 50px"> CARGILL </th>
+                                            <th class="class-th" style="width: 50px"> SFC </th>
+                                            <th class="class-th" style="width: 50px"> TIME TO PRODUCE </th>
+                                            <th class="class-th" style="width: 300px"> REMARKS </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container>
+                                            <tr *ngFor="let planning of planningLine2; let i = index">
+                                                <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
+                                                <td style="width: 50px">{{ planning.sku }}</td>
+                                                <td style="width: 350px">{{ planning.description }}</td>
+                                                <td style="width: 50px">{{ planning.form }}</td>
+                                                <td style="width: 50px">{{ planning.mt }}</td>
+                                                <td style="width: 50px">{{ planning.actualHours }}</td>
+                                                <td style="width: 50px">{{ planning.effectiveCapacity }}</td>
+                                                <td style="width: 150px">{{ planning.dieSizeThickness }}</td>
+                                                <td style="width: 100px">{{ planning.changeOver }}</td>
+                                                <td style="width: 100px">{{ planning.uncontrollable }}</td>
+                                                <td style="width: 50px">{{ planning.accountability }}</td>
+                                                <td style="width: 50px">{{ planning.delayStatus }}</td>
+                                                <td style="width: 50px">{{ planning.timeProduce }}</td>
+                                                <td style="width: 300px">{{ planning.remarks }}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                                <div
+                                    *ngIf="!lineTable2.length"
+                                    class="line-footer"
+                                    fxLayout="row"
+                                    fxLayoutAlign="center center"
+                                >
+                                    <div 
+                                        fxLayout="column" 
+                                        fxLayoutAlign="center center"
+                                    >
+                                        <img class="no-data-img" src="assets/images/logo/no-data.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-line3">
+                        <div id="new_list_table" class="material_table_address card mt-8">
+                            <div class="material_table_address_card">
+                                <div
+                                    class="line-header"
+                                    fxLayout="row"
+                                    fxLayoutAlign="space-between"
+                                >
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <span class="line"> LINE 3 </span>
+                                    </div>
+
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <button
+                                            mat-icon-button
+                                        >
+                                            <mat-icon> add_circle_outline </mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <!-- <th style="width: 70px"> Planning ID </th> -->
+                                            <th class="class-th" style="width: 50px"> SKU </th>
+                                            <th class="class-th" style="width: 350px"> DESCRIPTION </th>
+                                            <th class="class-th" style="width: 50px"> FORM </th>
+                                            <th class="class-th" style="width: 50px"> MT </th>
+                                            <th class="class-th" style="width: 50px"> ACTUAL </th>
+                                            <th class="class-th" style="width: 50px"> EFF. CAP </th>
+                                            <th class="class-th" style="width: 150px"> DIE SIZE / THICKNESS </th>
+                                            <th class="class-th" style="width: 100px"> CHANGE-OVER </th>
+                                            <th class="class-th" style="width: 100px"> UNCONTROLLABLE </th>
+                                            <th class="class-th" style="width: 50px"> CARGILL </th>
+                                            <th class="class-th" style="width: 50px"> SFC </th>
+                                            <th class="class-th" style="width: 50px"> TIME TO PRODUCE </th>
+                                            <th class="class-th" style="width: 300px"> REMARKS </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container>
+                                            <tr *ngFor="let planning of planningLine3; let i = index">
+                                                <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
+                                                <td style="width: 50px">{{ planning.sku }}</td>
+                                                <td style="width: 350px">{{ planning.description }}</td>
+                                                <td style="width: 50px">{{ planning.form }}</td>
+                                                <td style="width: 50px">{{ planning.mt }}</td>
+                                                <td style="width: 50px">{{ planning.actualHours }}</td>
+                                                <td style="width: 50px">{{ planning.effectiveCapacity }}</td>
+                                                <td style="width: 150px">{{ planning.dieSizeThickness }}</td>
+                                                <td style="width: 100px">{{ planning.changeOver }}</td>
+                                                <td style="width: 100px">{{ planning.uncontrollable }}</td>
+                                                <td style="width: 50px">{{ planning.accountability }}</td>
+                                                <td style="width: 50px">{{ planning.delayStatus }}</td>
+                                                <td style="width: 50px">{{ planning.timeProduce }}</td>
+                                                <td style="width: 300px">{{ planning.remarks }}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                                <div
+                                    *ngIf="!lineTable3.length"
+                                    class="line-footer"
+                                    fxLayout="row"
+                                    fxLayoutAlign="center center"
+                                >
+                                    <div 
+                                        fxLayout="column" 
+                                        fxLayoutAlign="center center"
+                                    >
+                                        <img class="no-data-img" src="assets/images/logo/no-data.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

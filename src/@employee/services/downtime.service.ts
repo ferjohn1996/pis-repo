@@ -54,4 +54,9 @@ export class DowntimeGuideService {
     return this.http.delete<DowntimeGuideList[]>(`${environment.apiUrl}/${this.url}/${productId}`);
   }
 
+  // Delete Multiple Downtime Guide Ids
+  deleteMultipleIds(Ids: number[]): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/${this.url}/delete-multiple`, { body: Ids });
+  }
+
 }

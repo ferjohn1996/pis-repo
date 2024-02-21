@@ -1,0 +1,123 @@
+@import "src/@fuse/scss/fuse";
+
+planning-details {
+  #view-main {
+    width: 100%;
+    background-color: white;
+
+    .full-container {
+      width: 100%;
+      // padding: 0.5rem;
+
+      .content {
+        border: 1px solid #cdd0d2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex: 0 1 auto;
+        height: calc(100vh - 120px);
+        overflow: auto;
+        border-radius: 4px;
+
+        @include media-breakpoint(gt-sm) {
+            @include mat-elevation(1);
+        }
+
+        .content-headers {
+          padding: 0.05rem;
+          
+          .employee-details {
+              font-size: large;
+              font-weight: bold;
+              font-style: italic;
+          }
+
+          .text-class {
+            font-size: 10px;
+          }
+        }
+
+        .content-body {
+          height: calc(100vh - 170px);
+          overflow: auto;
+          padding: 1rem;
+          width: 100%;
+
+          .content-line1,
+          .content-line2,
+          .content-line3 {
+            width: 100%;
+
+            #new_list_table {
+              width: 100%;
+
+              .material_table_address_card {
+                  width: 100%;
+                  border: 1px solid rgba(0, 0, 0, 0.075);
+                  // padding: 1rem 1rem 1rem 1rem;
+                  border-radius: 4px;
+                  overflow: hidden;
+                  transition: box-shadow 200ms ease-in-out;
+                  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+                      0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+          
+                  .line-header {
+                    margin: 0px 0px 0px 10px;
+
+                    .line {
+                      font-size: 12px;
+                      font-weight: bolder;
+                    }
+
+                  }
+
+                  .line-footer {
+                    align-items: center;
+                    padding: 10px 0px 10px 0px;
+
+                    .no-data-img {
+                      width: 25px;
+                      height: 25px;
+                      align-items: start;
+                    }
+                  }
+                  
+
+                  table td {
+                    width: 100%;
+                    font-size: 10px;
+                    padding: 5px 10px 5px 10px;
+                    text-align: left;
+                    align-items: start;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+                  }
+          
+                  table th {
+                    width: 100%;
+                    font-size: 10px;
+                    padding: 15px 10px 15px 10px;
+                    text-align: left;
+                    align-items: start;
+                    //background-color: cadetblue;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+                    white-space: nowrap;
+                  }
+
+                  .class-th {
+                    font-size: 10px;
+                    background-color: cadetblue;
+                  }
+
+                  .value {
+                    white-space: nowrap;
+                  }
+              }
+            }
+          }
+          
+        }
+      }
+    }
+  }
+}
+

@@ -1,60 +1,110 @@
 <div id="view-main">
     <!-- Header -->
-    <div 
-        class="header" 
-        fxLayout="row" 
-        fxLayoutAlign="start center" 
-        fxLayout.gt-sm="row"
-        fxLayoutAlign.gt-sm="space-between"
-    >
-        <div 
-            fxLayout="row" 
-            fxLayoutAlign="start center"
-            fxFlex="70"
-        >
-            <span class="header-title"> Product Information Lists </span>
-        </div>
-
-        <div 
-            fxLayout="row" 
-            fxLayoutAlign="end center"
-            fxFlex="30"
-        >
+    <div class="full-container">
+        <div fxLayout="column" class="content">
             <div 
-                class="search-wrapper"
-                fxLayout="row"
-                fxLayoutAlign="start"
-                fxFlex="80"
+                class="content-header" 
+                fxLayout="row" 
+                fxLayoutAlign="space-between" 
+                fxLayout.gt-sm="row"
+                fxLayoutAlign.gt-sm="space-between"
             >
-                <mat-form-field class="search-form" fxFlex="100">
-                    <input 
-                        matInput 
-                        placeholder="Search Product"
-                        (input)="applyFilter($event.target.value)"
-                    />
-                    <mat-icon matSuffix class="secondary-text">search</mat-icon>
-                </mat-form-field>
-            </div>
-            <div
-                fxLayout="row"
-                fxLayoutAlign="end center"
-                fxFlex="20"
-            >
-                <button 
-                    mat-raised-button 
-                    (click)="openAddProductDialog()"
+                <div 
+                    class="title"
+                    fxLayout="row" 
+                    fxLayoutAlign="start center"
+                    fxFlex="30"
                 >
-                    <mat-icon>playlist_add</mat-icon>
-                    <span class="btn-label" fxHide fxShow.gt-sm> Add </span>
-                </button>
+                    <span class="title-details"> Product Information Lists </span>
+                </div>
+        
+                <div 
+                    class="action-header"
+                    fxLayout="row" 
+                    fxLayoutAlign="end center"
+                    fxFlex="70"
+                >
+                    <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+                        <div
+                            class="search-wrapper"
+                        >
+                            <div
+                                class="search"
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                                fxFlex
+                            >
+                                <input 
+                                    matInput 
+                                    placeholder="Search Product"
+                                    (input)="applyFilter($event.target.value)"
+                                />
+                                <mat-icon matSuffix class="secondary-text">search</mat-icon>
+                            </div>
+                        </div>
+                        <div 
+                            fxLayout="column"
+                            fxLayoutAlign="center center"
+                            class="margin-add"
+                        >
+                            <button
+                                mat-icon-button
+                                (click)="openAddDialog()"
+                            >
+                                <mat-icon class="secondary-text">playlist_add</mat-icon>
+                            </button>
+                            <span class="span-text">Add</span>
+                        </div>
+                        <div 
+                            fxLayout="column"
+                            fxLayoutAlign="center center"
+                            class="margin-delete"
+                        >
+                            <button
+                                mat-icon-button
+                                (click)="deleteMultipleRecords()"
+                            >
+                                <mat-icon class="secondary-text">delete_forever</mat-icon>
+                            </button>
+                            <span class="span-text">Delete</span>
+                        </div>
+                        <div 
+                            fxLayout="column"
+                            fxLayoutAlign="center center"
+                            class="margin-export"
+                        >
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="userMenu"
+                            >
+                                <mat-icon class="secondary-text">   
+                                    arrow_drop_down_circle
+                                </mat-icon>
+                            </button>
+
+                            <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+                                <!-- <button mat-menu-item (click)="deleteMultipleRecords()">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Delete Selected</span>
+                                </button> -->
+
+                                <button mat-menu-item (click)="openUploadDialog()">
+                                    <mat-icon>save_alt</mat-icon>
+                                    <span>Upload file</span>
+                                </button>
+
+                                <button mat-menu-item (click)="onComingSoon()">
+                                    <mat-icon>library_books</mat-icon>
+                                    <span>Export to Excel</span>
+                                </button>
+                            </mat-menu>
+                            <span class="span-text">Actions</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Body -->
-    <div class="center">
-
-        <!-- CONTENT BODY -->
+            <!-- CONTENT BODY -->
         <div class="content-body mat-elevation-z8">
             <div class="content-table-container">
                 <!-- <mat-progress-bar
@@ -67,6 +117,22 @@
                     matSortActive="columnName" 
                     matSortDirection="asc"
                 >
+                    <ng-container matColumnDef="checkbox">
+                        <mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox
+                                (change)="toggleSelectAll()"
+                                [checked]="isAllSelected()"
+                            ></mat-checkbox>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-checkbox
+                                [checked]="element.isSelected"
+                                (change)="toggleSelection(element)"
+                                (click)="$event.stopPropagation()"
+                            ></mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+
                     <!-- ID Column -->
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> NO. </mat-header-cell>
@@ -107,16 +173,23 @@
                             >
                                 <button
                                     mat-icon-button
-                                    (click)="openEditProductDialog(element)"
+                                    (click)="openViewDialog(element)"
                                 >
-                                    <mat-icon class="secondary-text">edit</mat-icon>
+                                    <mat-icon class="btn-edit secondary-text">pageview</mat-icon>
                                 </button>
 
                                 <button
                                     mat-icon-button
-                                    (click)="deleteProductClass(element.id)"
+                                    (click)="openEditDialog(element)"
                                 >
-                                    <mat-icon class="secondary-text">delete_forever</mat-icon>
+                                    <mat-icon class="btn-edit secondary-text">edit</mat-icon>
+                                </button>
+
+                                <button
+                                    mat-icon-button
+                                    (click)="deleteRecordId(element.id)"
+                                >
+                                    <mat-icon class="btn-remove secondary-text">delete_forever</mat-icon>
                                 </button>
                             </div>
                         </mat-cell>
@@ -137,9 +210,9 @@
                     [showFirstLastButtons]="true"
                     [pageSize]="10"
                     [pageSizeOptions]="[10, 20, 30]"
-                    aria-label="Select page of periodic elements"
                 >
                 </mat-paginator>
-        </div>       
+        </div>
+        </div>
     </div>
 </div>

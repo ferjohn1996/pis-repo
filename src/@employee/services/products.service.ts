@@ -54,4 +54,14 @@ export class ProductsService {
     return this.http.delete<ProductClassification[]>(`${environment.apiUrl}/${this.url}/${productId}`);
   }
 
+  // Delete Multiple Product Classification Ids
+  deleteMultipleIds(productIds: number[]): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/${this.url}/delete-multiple`, { body: productIds });
+  }
+
+  // Upload Product Classification Ids
+  uploadFiles(data): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/${this.url}/upload`, data);
+  }
+
 }

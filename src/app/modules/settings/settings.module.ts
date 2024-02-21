@@ -14,6 +14,9 @@ import { ProductsService } from '@employee/services/products.service';
 import { ProductUpdateComponent } from './product-list/product-edit/product-edit.component';
 import { DowntimeGuideService } from '@employee/services/downtime.service';
 import { DowntimeGuideEditComponent } from './downtime/donwtime-edit/donwtime-edit.component';
+import { ProductUploadComponent } from './product-list/product-upload/product-upload.component';
+import { ProductViewComponent } from './product-list/product-view/product-view.component';
+import { DowntimeGuideViewComponent } from './downtime/donwtime-view/donwtime-view.component';
 
 const routes: Route[]= [
     {
@@ -41,10 +44,13 @@ const routes: Route[]= [
         ProductListComponent,
         ProductRequestComponent,
         ProductUpdateComponent,
+        ProductUploadComponent,
+        ProductViewComponent,
         
         DowntimeGuideListComponent,
         DowntimeGuideRequestComponent,
         DowntimeGuideEditComponent,
+        DowntimeGuideViewComponent,
 
         CompanyListComponent,
     ],

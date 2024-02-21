@@ -9,6 +9,9 @@ import { DowntimeGuideService } from '@employee/services/downtime.service';
 import { DowntimeGuideEditComponent } from './donwtime-edit/donwtime-edit.component';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import Swal from 'sweetalert2';
+import { ComingSoonModalComponent } from '@employee/modals/coming-soon/coming-soon';
+import { DowntimeGuideList } from '@employee/models/downtime.model';
+import { DowntimeGuideViewComponent } from './donwtime-view/donwtime-view.component';
 
 @Component({
     selector     : 'downtime',
@@ -18,6 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class DowntimeGuideListComponent implements OnInit, OnDestroy {
     displayedColumns: string[] = [
+        'checkbox',
         'id', 
         'classification', 
         'description',
@@ -26,6 +30,8 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
         'actions'
     ];
     dataSource = new MatTableDataSource<any>();
+    selectedIds: number[] = [];
+
 
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -46,6 +52,16 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
         private _downtimeService: DowntimeGuideService
     )
     { }
+
+    toggleSelection(element: DowntimeGuideList) {
+        element.isSelected = !element.isSelected;
+    
+        if (element.isSelected && !this.selectedIds.includes(element.id)) {
+            this.selectedIds.push(element.id);
+        } else if (!element.isSelected && this.selectedIds.includes(element.id)) {
+            this.selectedIds = this.selectedIds.filter(id => id !== element.id);
+        }
+    }
 
     /**
      * On init
@@ -82,7 +98,7 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
         this.dataSource.filter = value;
     }
 
-    openAddDowntimeDialog(): void {
+    openAddDialog(): void {
         const dialogRef = this.dialog.open(DowntimeGuideRequestComponent, {
             panelClass: 'forms-dialog',
             width: '550px',
@@ -98,7 +114,7 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
         });
     }
 
-    openEditDowntimeDialog(downtime): void {
+    openEditDialog(downtime): void {
         const dialogRef = this.dialog.open(DowntimeGuideEditComponent, {
             panelClass: 'forms-dialog',
             width: '550px',
@@ -115,7 +131,24 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
         });
     }
 
-    deleteDowntimeGuide(downtimeId): void {
+    openViewDialog(downtime): void {
+        const dialogRef = this.dialog.open(DowntimeGuideViewComponent, {
+            panelClass: 'forms-dialog',
+            width: '550px',
+            data: {
+                action: 'new',
+                title: 'Product Request',
+                downtime: downtime
+            },
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+        //   console.log('The dialog was closed');
+          this.title = result;
+        });
+    }
+
+    deleteRecordId(downtimeId): void {
         this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
             disableClose: false
         });
@@ -141,5 +174,65 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
             }
             this.confirmDialogRef = null;
         });
+    }
+
+    deleteMultipleRecords() {
+        if (this.selectedIds.length === 0) {
+            // Show an error message or alert indicating no records are selected.
+            Swal.fire({
+                title: "Error",
+                text: "No records are selected",
+                icon: "error",
+                showConfirmButton: true,
+                confirmButtonColor: '#2196F3',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+            return;
+        }
+
+        this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
+            disableClose: false
+        });
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this multiple records?';
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this._downtimeService.deleteMultipleIds(this.selectedIds)
+                    .subscribe(() => {
+                        // Handle success, e.g., refresh data or show a success message.
+                        Swal.fire({
+                            title: "Success",
+                            text: `Records deleted successfully.`,
+                            icon: "success",
+                            showConfirmButton: true,
+                            confirmButtonColor: '#4CAF50',
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
+                    });
+            }
+        });
+    }
+
+    onComingSoon(): void {
+        const dialogRef = this.dialog.open(ComingSoonModalComponent, {
+            panelClass: 'settings-form-dialog',
+            width: '400px',
+            height: '350px',
+            disableClose: false
+        });
+
+        dialogRef.afterClosed()
+            .subscribe((response) => {
+                if (!response) {
+                    return;
+                }
+            });
     }
 }

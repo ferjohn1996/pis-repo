@@ -1,0 +1,46 @@
+
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="dialog-header mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start">
+                <span class="title dialog-title"> PRODUCT UPLOADING </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button
+                    mat-icon-button
+                    (click)="onCloseClick()"
+                    aria-label="Close dialog"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="dialog-content m-6">
+        <form 
+            (ngSubmit)="onSubmit()" 
+            enctype="multipart/form-data"
+            fxLayout="column"
+            fxFlex
+        >
+            <div fxLayout="column" fxLayoutAlign="space-between">
+                <input
+                    class="mat-label" 
+                    type="file" name="file" 
+                    (change)="onFileSelected($event)"
+                />
+
+                <button
+                    mat-raised-button
+                    type="submit"
+                    color="accent"
+                    class="custom-button"
+                >
+                    <mat-icon>save</mat-icon>
+                    <span class="btn-label"> Upload </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

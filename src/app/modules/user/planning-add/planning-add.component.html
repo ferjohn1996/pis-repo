@@ -1,0 +1,47 @@
+
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="dialog-header mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start">
+                <span class="title dialog-title"> PLANNING REQUEST FORM </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button
+                    mat-icon-button
+                    (click)="onCloseClick()"
+                    aria-label="Close dialog"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="dialog-content m-6">
+        <form [formGroup]="postDataForm" (ngSubmit)="onSubmit()">
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <mat-form-field fxFlex>
+                    <mat-label class="mat-label">Description</mat-label>
+                    <textarea 
+                        matInput
+                        class="text-area"
+                        formControlName="description"
+                        required
+                    ></textarea>
+                </mat-form-field>
+            </div>
+    
+            <div fxLayout="row" fxLayoutAlign="end center">
+                <button
+                    mat-raised-button
+                    type="submit" 
+                    [disabled]="postDataForm.invalid"
+                    color="accent"
+                >
+                    <mat-icon>save</mat-icon>
+                    <span class="btn-label"> Save </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

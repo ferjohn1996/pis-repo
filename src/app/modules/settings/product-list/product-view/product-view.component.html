@@ -1,0 +1,67 @@
+
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="dialog-header mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start">
+                <span class="title dialog-title"> PRODUCT CLASSIFICATION VIEW FORM </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button
+                    mat-icon-button
+                    (click)="onCloseClick()"
+                    aria-label="Close dialog"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="dialog-content m-6">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field fxFlex>
+                <mat-label class="mat-label">Product Code</mat-label>
+                <input
+                    matInput
+                    class="text-area"
+                    [readonly]="true"
+                    [(ngModel)]="productCode"
+                />
+                <mat-icon matSuffix class="secondary-text">money</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field fxFlex>
+                <mat-label class="mat-label">Description</mat-label>
+                <textarea 
+                    matInput
+                    class="text-area"
+                    [(ngModel)]="productDescription"
+                    [readonly]="true"
+                ></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field class="pr-8" fxFlex>
+                <mat-label class="mat-label">Created Date and Time</mat-label>
+                <input
+                    matInput
+                    class="text-area"
+                    [readonly]="true"
+                    [(ngModel)]="createdDateTime"
+                />
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <mat-label class="mat-label">Modified Date and Time</mat-label>
+                <input
+                    matInput
+                    class="text-area"
+                    [readonly]="true"
+                />
+            </mat-form-field>
+        </div>
+    </div>
+</div>

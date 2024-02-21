@@ -110,6 +110,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
             }
         ]
     },
+    {
+        id      : 'session',
+        title   : 'Session',
+        type    : 'group',
+        icon    : 'heroicons_outline:home',
+        children: [
+            {
+                id   : 'Empty',
+                title: 'Logout',
+                type : 'basic',
+                icon : 'heroicons_outline:logout',
+                link : '/sign-out'
+            }
+        ]
+    },
 ];
 
 
