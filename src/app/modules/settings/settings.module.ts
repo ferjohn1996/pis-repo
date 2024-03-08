@@ -17,6 +17,8 @@ import { DowntimeGuideEditComponent } from './downtime/donwtime-edit/donwtime-ed
 import { ProductUploadComponent } from './product-list/product-upload/product-upload.component';
 import { ProductViewComponent } from './product-list/product-view/product-view.component';
 import { DowntimeGuideViewComponent } from './downtime/donwtime-view/donwtime-view.component';
+import { Products1Service } from '@employee/services/products1.service';
+import { DowntimeGuide1Service } from '@employee/services/downtime1.service';
 
 const routes: Route[]= [
     {
@@ -66,7 +68,9 @@ const routes: Route[]= [
     ],
     providers: [
         ProductsService,
-        DowntimeGuideService
+        DowntimeGuideService,
+        Products1Service,
+        DowntimeGuide1Service
     ]
 })
 export class MasterSettingsModule

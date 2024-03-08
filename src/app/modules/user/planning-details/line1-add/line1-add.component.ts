@@ -1,22 +1,18 @@
 import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { APIPlanningLine1Mappers, APIPlanningMappers } from '@employee/mappers/planning';
-import { DowntimeGuideList } from '@employee/models/downtime.model';
-import { PlanningList } from '@employee/models/planning.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { APIPlanningLineMappers } from '@employee/mappers/planning';
+import { PlanningById } from '@employee/models/planning.model';
 import { ProductClassificationId, ProductClassificationList } from '@employee/models/product.model';
-import { DowntimeGuideService } from '@employee/services/downtime.service';
-import { PlanningService } from '@employee/services/planning.service';
-import { ProductsService } from '@employee/services/products.service';
+import { Planning1Service } from '@employee/services/planning1.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-    selector     : 'add-line1',
-    templateUrl  : './add-line1.component.html',
-    styleUrls    : ['./add-line1.component.scss'],
+    selector     : 'line1-add',
+    templateUrl  : './line1-add.component.html',
+    styleUrls    : ['./line1-add.component.scss'],
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
@@ -29,8 +25,21 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
     productById: ProductClassificationId;
     productId: number;
     description: string;
+    skuCode: string;
 
     planningId: number;
+
+    planning: PlanningById;
+    planningById: number;
+
+    showHide: boolean = false;
+
+    // For filtering department name
+    public productionOptions: ProductClassificationList[] = [];
+    public productList = this.productionOptions.slice();
+
+    // For sorting name or description
+    sortedArray = [];
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -42,18 +51,36 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
 
         private fb: FormBuilder, 
-        private _planningService: PlanningService
+        private _planningService: Planning1Service
     )
     {
-        this._planningService.getProductForOptions()
-            .then(data => {
-                this.productModel = data;
+        // this._planningService.getProductForOptions()
+        //     .then(data => {
+        //         this.productModel = data;
+        // });
+
+        this._planningService.getProductForOptions().then((response = []) => {
+            this.productModel = response;
+            this.productionOptions = response;
+            this.productList = this.productionOptions.slice();
+
+            // Sort SKU
+            this.sortedArray = this.productList.sort((a,b) => {
+                if(a.code < b.code) { return -1; }
+                if(a.code > b.code) { return 1; }
+            });
         });
+
+        this._planningService.getPlanningById(data.id)
+            .then(data => {
+                this.planning = data;
+                this.planningById = data.id;
+            });
 
         this.postDataForm = this.fb.group({
             planningId: [''],
-            planningRequestId: [''],
             sku: [''],
+            skuCode: [''],
             description: [''],
             form: [''],
             mt: [''],
@@ -91,12 +118,13 @@ export class PlanningAddLine1Component implements OnInit, OnDestroy {
         this._planningService.getProducIdOptions(productId)
             .then(data => {
                 this.description = data.description;
+                this.skuCode = data.code;
             });
     }
 
     onSubmit(): void {
         const dataForm = this.postDataForm.getRawValue();
-        const mapData = APIPlanningLine1Mappers(dataForm);
+        const mapData = APIPlanningLineMappers(dataForm);
         
         this._planningService
             .createPlanningLine1(mapData)

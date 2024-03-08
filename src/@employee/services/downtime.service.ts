@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { DowntimeGuide, DowntimeGuideId, DowntimeGuideList } from '@employee/models/downtime.model';
-import { environment } from 'environments/environment';
+
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class DowntimeGuideService {
 
-  private url = "DowntimeGuide";
+  private url = "http://10.17.96.45:85/api/DowntimeGuide";
 
   // Declare an event emitter
   productUpdated = new EventEmitter<void>();
@@ -26,37 +27,37 @@ export class DowntimeGuideService {
 
   // Get Downtime Guide with Descending order
   public getDowntimeGuideList(sortOrder: string = 'asc'): Observable<DowntimeGuideList[]> {
-    return this.http.get<DowntimeGuideList[]>(`${environment.apiUrl}/${this.url}?sortOrder=${sortOrder}`);
+    return this.http.get<DowntimeGuideList[]>(`${this.url}?sortOrder=${sortOrder}`);
   }
 
   // Get Downtime Guide by ID
-  public getDowntimeGuideId(downtimeId: number): Observable<any[]>{
-    return this.http.get<DowntimeGuideId[]>(`${environment.apiUrl}/${this.url}/${downtimeId}`);
+  public getDowntimeGuideId(Id: number): Observable<any[]>{
+    return this.http.get<DowntimeGuideId[]>(`${this.url}/${Id}`);
   }
 
   // Create Downtime Guide
-  public createDowntimeGuide(downtime: DowntimeGuide): Observable<DowntimeGuide[]>{
-    return this.http.post<DowntimeGuide[]>(`${environment.apiUrl}/${this.url}`, downtime);
+  public createDowntimeGuide(data: DowntimeGuide): Observable<DowntimeGuide[]>{
+    return this.http.post<DowntimeGuide[]>(`${this.url}`, data);
   }
 
   // Edit Downtime Guide
-  public editDowntimeGuide(downtime: DowntimeGuide): Observable<DowntimeGuide[]>{
-    return this.http.put<DowntimeGuide[]>(`${environment.apiUrl}/${this.url}`, downtime);
+  public editDowntimeGuide(data: DowntimeGuide): Observable<DowntimeGuide[]>{
+    return this.http.put<DowntimeGuide[]>(`${this.url}`, data);
   }
 
   // Edit Downtime Guide by ID
-  public editDowntimeGuideId(downtimeId: number, downtime: DowntimeGuide): Observable<DowntimeGuide[]>{
-    return this.http.put<DowntimeGuide[]>(`${environment.apiUrl}/${this.url}/${downtimeId}`, downtime);
+  public editDowntimeGuideId(Id: number, downtime: DowntimeGuide): Observable<DowntimeGuide[]>{
+    return this.http.put<DowntimeGuide[]>(`${this.url}/${Id}`, downtime);
   }
 
   // Delete Downtime Guide
-  public deleteDowntimeGuideId(productId: number): Observable<any[]>{
-    return this.http.delete<DowntimeGuideList[]>(`${environment.apiUrl}/${this.url}/${productId}`);
+  public deleteDowntimeGuideId(Id: number): Observable<any[]>{
+    return this.http.delete<DowntimeGuideList[]>(`${this.url}/${Id}`);
   }
 
   // Delete Multiple Downtime Guide Ids
   deleteMultipleIds(Ids: number[]): Observable<any> {
-    return this.http.delete<any>(`${environment.apiUrl}/${this.url}/delete-multiple`, { body: Ids });
+    return this.http.delete<any>(`${this.url}/delete-multiple`, { body: Ids });
   }
 
 }

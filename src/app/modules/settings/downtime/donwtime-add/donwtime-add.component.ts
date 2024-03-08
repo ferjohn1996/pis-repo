@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { APIDowntimeGuideClassMappers } from '@employee/mappers/downtime-guide';
 import { DowntimeGuideService } from '@employee/services/downtime.service';
+import { DowntimeGuide1Service } from '@employee/services/downtime1.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -29,7 +30,7 @@ export class DowntimeGuideRequestComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
         
         private fb: FormBuilder, 
-        private _downtimeService: DowntimeGuideService
+        private _downtimeService: DowntimeGuide1Service
     )
     {
         this.postDataForm = this.fb.group({

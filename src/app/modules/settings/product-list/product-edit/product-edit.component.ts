@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { APIProductClassMappers } from '@employee/mappers/product-classification';
 import { ProductsService } from '@employee/services/products.service';
+import { Products1Service } from '@employee/services/products1.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -33,7 +34,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
 
         private fb: FormBuilder, 
-        private _productService: ProductsService
+        private _productService: Products1Service
     )
     {
 

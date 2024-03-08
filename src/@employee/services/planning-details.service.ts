@@ -1,14 +1,17 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
-import { environment } from "environments/environment";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { environment } from "environments/environment";
 
 @Injectable()
 export class PlanningDetailsService implements Resolve<any> {
     routeParams: any;
     data: any;
     onDetailsChanged: BehaviorSubject<any>;
+
+    private url = "http://10.17.96.45:85/api/PlanningRequest";
+    // private url: "https://localhost:7040/api/PlanningRequest";
 
     /**
      * Constructor
@@ -46,8 +49,7 @@ export class PlanningDetailsService implements Resolve<any> {
                 resolve(false);
             } else {
                 this._httpClient
-                    .get(`${environment.apiUrl}/PlanningRequest/${this.routeParams.id}`)
-                    //.get("api/employee/" + this.routeParams.id)
+                    .get(`${this.url}/${this.routeParams.id}`)
                     .subscribe((response: any) => {
                         this.data = response;
                         this.onDetailsChanged.next(this.data);
@@ -55,5 +57,10 @@ export class PlanningDetailsService implements Resolve<any> {
                     }, reject);
             }
         });
+    }
+
+    // Delete Planning Line 1 by ID
+    public deleteLine1ById(id: number): Observable<any[]>{
+        return this._httpClient.delete<any[]>(`${this.url}/line1/${id}`);
     }
 }

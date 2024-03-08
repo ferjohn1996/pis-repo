@@ -13,6 +13,7 @@ import { ComingSoonModalComponent } from '@employee/modals/coming-soon/coming-so
 import { ProductClassificationList } from '@employee/models/product.model';
 import { ProductUploadComponent } from './product-upload/product-upload.component';
 import { ProductViewComponent } from './product-view/product-view.component';
+import { Products1Service } from '@employee/services/products1.service';
 
 @Component({
     selector     : 'product-list',
@@ -50,7 +51,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     constructor 
     ( 
         public dialog: MatDialog,
-        private _productService: ProductsService
+        private _productService: Products1Service
     )
     { }
 

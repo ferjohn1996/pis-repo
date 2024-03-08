@@ -1,0 +1,81 @@
+@import "src/@fuse/scss/fuse";
+.timepicker-overlay {
+    z-index: 999999 !important;
+}
+
+.forms-dialog {
+  z-index: 999;
+  @include media-breakpoint("xs") {
+    width: 100%;
+  }
+
+  @include media-breakpoint("gt-xs") {
+    //width: 550px;
+  }
+
+  .mat-dialog-container {
+    padding: 0 !important;
+
+    .mat-toolbar {
+      flex: 1 0 auto;
+      min-height: initial;
+    }
+
+    .toolbar-bottom {
+      height: auto;
+    }
+
+    .dialog-title {
+      text-transform: capitalize;
+      font-size: small;
+    }
+  }
+
+  .dialog-content-wrapper {
+    //max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dialog-header {
+    border-bottom: 1px solid #cdd0d2;
+  }
+
+  .dialog-content {
+    //padding: 2rem;
+
+    .class-divider {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .mat-label {
+      font-size: 11px;
+    }
+
+    .text-area {
+      font-size: 11px;
+    }
+
+    .mat-form-size {
+      font-size: 11px;
+    }
+
+    .btn-label {
+      margin-left: 2px;
+      font-size: 12px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+
+  .btn {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+
+}

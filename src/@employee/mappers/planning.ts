@@ -7,12 +7,12 @@ export const APIPlanningMappers = (data: PlanningPost) => {
     };
 };
 
-export const APIPlanningLine1Mappers = (data: Line) => {
+export const APIPlanningLineMappers = (data: Line) => {
     return {
         id: data.id,
         planningId: data.planningId,
-        planningRequestId: data.planningRequestId,
         sku: data.sku,
+        skuCode: data.skuCode,
         description: data.description,
         form: data.form,
         mt: data.mt,

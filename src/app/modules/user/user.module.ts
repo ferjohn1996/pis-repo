@@ -13,7 +13,17 @@ import { PlanningService } from '@employee/services/planning.service';
 import { PlanningDetailsService } from '@employee/services/planning-details.service';
 import { PlanningDetailsComponent } from './planning-details/planning-details';
 import { PlanningAddDiaglogComponent } from './planning-add/planning-add.component';
-import { PlanningAddLine1Component } from './planning-details/add-line1/add-line1.component';
+import { PlanningDetails1Service } from '@employee/services/planning-details1.service';
+import { Planning1Service } from '@employee/services/planning1.service';
+import { PlanningAddLine1Component } from './planning-details/line1-add/line1-add.component';
+import { PlanningEditLine1Component } from './planning-details/line1-edit/line1-edit.component';
+import { PlanningViewLine1Component } from './planning-details/line1-view/line1-view.component';
+import { PlanningAddLine2Component } from './planning-details/line2-add/line2-add.component';
+import { PlanningEditLine2Component } from './planning-details/line2-edit/line2-edit.component';
+import { PlanningViewLine2Component } from './planning-details/line2-view/line2-view.component';
+import { PlanningAddLine3Component } from './planning-details/line3-add/line3-add.component';
+import { PlanningEditLine3Component } from './planning-details/line3-edit/line3-edit.component';
+import { PlanningViewLine3Component } from './planning-details/line3-view/line3-view.component';
 
 const routes: Route[] = [
     {
@@ -28,14 +38,14 @@ const routes: Route[] = [
         path: "details/:id",
         component: PlanningDetailsComponent,
         resolve: {
-            data: PlanningDetailsService
+            data: PlanningDetails1Service
         }
     },
     {
         path: "details/:id/:handle",
         component: PlanningDetailsComponent,
         resolve: {
-            data: PlanningDetailsService
+            data: PlanningDetails1Service
         }
     },
     {
@@ -59,7 +69,19 @@ const routes: Route[] = [
         PlanningComponent,
         PlanningDetailsComponent,
         PlanningAddDiaglogComponent,
+
         PlanningAddLine1Component,
+        PlanningEditLine1Component,
+        PlanningViewLine1Component,
+
+        PlanningAddLine2Component,
+        PlanningEditLine2Component,
+        PlanningViewLine2Component,
+
+        PlanningAddLine3Component,
+        PlanningEditLine3Component,
+        PlanningViewLine3Component,
+        
         
         BatchingComponent,
         PellitingComponent,
@@ -77,7 +99,9 @@ const routes: Route[] = [
     ],
     providers: [
         PlanningService,
-        PlanningDetailsService
+        PlanningDetailsService,
+        PlanningDetails1Service,
+        Planning1Service
     ]
 })
 export class UserRequestModule

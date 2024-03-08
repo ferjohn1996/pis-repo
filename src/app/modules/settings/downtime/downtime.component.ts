@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { ComingSoonModalComponent } from '@employee/modals/coming-soon/coming-soon';
 import { DowntimeGuideList } from '@employee/models/downtime.model';
 import { DowntimeGuideViewComponent } from './donwtime-view/donwtime-view.component';
+import { DowntimeGuide1Service } from '@employee/services/downtime1.service';
 
 @Component({
     selector     : 'downtime',
@@ -49,7 +50,7 @@ export class DowntimeGuideListComponent implements OnInit, OnDestroy {
     constructor
     ( 
         public dialog: MatDialog,
-        private _downtimeService: DowntimeGuideService
+        private _downtimeService: DowntimeGuide1Service
     )
     { }
 

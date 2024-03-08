@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { APIPlanningMappers } from '@employee/mappers/planning';
 import { PlanningService } from '@employee/services/planning.service';
+import { Planning1Service } from '@employee/services/planning1.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -30,7 +31,7 @@ export class PlanningAddDiaglogComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
 
         private fb: FormBuilder, 
-        private _planningService: PlanningService,
+        private _planningService: Planning1Service,
         private router: Router
     )
     {

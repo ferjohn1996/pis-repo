@@ -12,6 +12,7 @@ import { PlanningList } from '@employee/models/planning.model';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
 import { PlanningAddDiaglogComponent } from '../planning-add/planning-add.component';
+import { Planning1Service } from '@employee/services/planning1.service';
 
 @Component({
     selector     : 'planning',
@@ -41,7 +42,7 @@ export class PlanningComponent implements OnInit, OnDestroy {
      */
     constructor(
         public dialog: MatDialog,
-        private _planningService: PlanningService,
+        private _planningService: Planning1Service,
         private router: Router,
     )
     { }

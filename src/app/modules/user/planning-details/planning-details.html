@@ -14,9 +14,9 @@
                 <div
                     class="content-headers"
                     fxLayout="row"
-                    fxLayoutAlign="space-between"
+                    fxLayoutAlign="start center"
                 >
-                    <div fxLayout="row" fxLayoutAlign="start center">
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="75">
                         <button 
                             mat-icon-button
                             (click)="onClickBack()"
@@ -26,15 +26,77 @@
                         <span class="employee-details"> #{{ planningBatchId }} </span>
                     </div>
 
-                    <div fxLayout="column" fxLayoutAlign="start center">
-                        <div fxLayout="row" fxLayoutAlign="start start">
-                            <span class="text-class">Created By:</span> <span></span>
+                    <div fxLayout="column" fxLayoutAlign="space-between" fxFlex="25">
+                        <div fxLayout="row" fxLayoutAlign="start">
+                            <div fxLayout="row" fxLayoutAlign="start" fxFlex="50">
+                                <span class="text-class">Created DateTime:</span>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="start" fxFlex="50">
+                                <span class="text-data"> {{ createdDateTime | date:'short' }} </span>
+                            </div>
                         </div>
-                        <div fxLayout="row" fxLayoutAlign="start start">
-                            <span class="text-class">Modified By</span> <span></span>
+                        <div 
+                            fxLayout="row" 
+                            fxLayoutAlign="start"
+                        >
+                            <div fxLayout="row" fxLayoutAlign="start" fxFlex="50">
+                                <span class="text-class">Modified DateTime:</span>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="start" fxFlex="50">
+                                <span class="text-data"> {{ modifiedDateTime | date:'short' }} </span>
+                            </div>
                         </div>
                         
                     </div>
+                </div>
+                <div
+                    class="content-total"
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                >
+                    <div
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                        fxFlex="50"
+                    >
+                        <div
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                            fxFlex="20"
+                        >
+                            <span class="label">Total Volume : </span>
+                        </div>
+                        <div
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                            fxFlex="80"
+                        >
+                            <span class="label-data">{{ totalVolume }}</span>
+                        </div>
+                        
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                        fxFlex="50"
+                    >
+                        <div
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                            fxFlex="20"
+                        >
+                            <span class="label">Total Actual : </span>
+                        </div>
+                        <div
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                            fxFlex="80"
+                        >
+                            <span class="label-data">{{ totalActual }}</span>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
 
                 <div
@@ -47,7 +109,7 @@
                         fxLayoutAlign="start center" 
                         class="content-line1"
                     >
-                        <div id="new_list_table" class="material_table_address card mt-8">
+                        <div id="new_list_table" class="material_table_address card">
                             <div class="material_table_address_card">
                                 <div
                                     class="line-header"
@@ -83,14 +145,15 @@
                                             <th class="class-th" style="width: 50px"> CARGILL </th>
                                             <th class="class-th" style="width: 50px"> SFC </th>
                                             <th class="class-th" style="width: 50px"> TIME TO PRODUCE </th>
-                                            <th class="class-th" style="width: 300px"> REMARKS </th>
+                                            <!-- <th class="class-th" style="width: 300px"> REMARKS </th> -->
+                                            <th class="class-th"> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <ng-container>
                                             <tr *ngFor="let planning of planningLine1; let i = index">
                                                 <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
-                                                <td style="width: 50px">{{ planning.sku }}</td>
+                                                <td style="width: 50px">{{ planning.skuCode }}</td>
                                                 <td style="width: 350px">{{ planning.description }}</td>
                                                 <td style="width: 50px">{{ planning.form }}</td>
                                                 <td style="width: 50px">{{ planning.mt }}</td>
@@ -102,7 +165,37 @@
                                                 <td style="width: 50px">{{ planning.accountability }}</td>
                                                 <td style="width: 50px">{{ planning.delayStatus }}</td>
                                                 <td style="width: 50px">{{ planning.timeProduce }}</td>
-                                                <td style="width: 300px">{{ planning.remarks }}</td>
+                                                <!-- <td style="width: 300px">{{ planning.remarks }}</td> -->
+                                                <td class="class-action">
+                                                    <a (click)="openViewLine1Dialog(planning)">
+                                                        <mat-icon class="btn-edit secondary-text">remove_red_eye</mat-icon>
+                                                    </a>
+                                                    <a (click)="openEditLine1Dialog(planning)">
+                                                        <mat-icon class="btn-edit secondary-text">edit</mat-icon>
+                                                    </a>
+                                                    <a (click)="deleteLine1RecordId(planning.id)">
+                                                        <mat-icon class="btn-remove secondary-text">delete_forever</mat-icon>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="lineTable1.length">
+                                            <tr>
+                                                <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
+                                                <td class="total" style="width: 50px">TOTAL</td>
+                                                <td class="total" style="width: 350px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" class="total" style="width: 50px">{{ line1TotalMT }}</td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 150px"></td>
+                                                <td class="total" style="width: 100px"></td>
+                                                <td class="total" style="width: 100px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px">{{ line1TotalTP }}</td>
+                                                <!-- <td style="width: 300px">{{ planning.remarks }}</td> -->
+                                                <td class="total"></td>
                                             </tr>
                                         </ng-container>
                                     </tbody>
@@ -138,6 +231,7 @@
 
                                     <div fxLayout="row" fxLayoutAlign="start center">
                                         <button
+                                            (click)="openAddLine2Dialog()"
                                             mat-icon-button
                                         >
                                             <mat-icon> add_circle_outline </mat-icon>
@@ -160,14 +254,15 @@
                                             <th class="class-th" style="width: 50px"> CARGILL </th>
                                             <th class="class-th" style="width: 50px"> SFC </th>
                                             <th class="class-th" style="width: 50px"> TIME TO PRODUCE </th>
-                                            <th class="class-th" style="width: 300px"> REMARKS </th>
+                                            <!-- <th class="class-th" style="width: 300px"> REMARKS </th> -->
+                                            <th class="class-th"> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <ng-container>
                                             <tr *ngFor="let planning of planningLine2; let i = index">
                                                 <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
-                                                <td style="width: 50px">{{ planning.sku }}</td>
+                                                <td style="width: 50px">{{ planning.skuCode }}</td>
                                                 <td style="width: 350px">{{ planning.description }}</td>
                                                 <td style="width: 50px">{{ planning.form }}</td>
                                                 <td style="width: 50px">{{ planning.mt }}</td>
@@ -179,7 +274,37 @@
                                                 <td style="width: 50px">{{ planning.accountability }}</td>
                                                 <td style="width: 50px">{{ planning.delayStatus }}</td>
                                                 <td style="width: 50px">{{ planning.timeProduce }}</td>
-                                                <td style="width: 300px">{{ planning.remarks }}</td>
+                                                <!-- <td style="width: 300px">{{ planning.remarks }}</td> -->
+                                                <td class="class-action">
+                                                    <a (click)="openViewLine2Dialog(planning)">
+                                                        <mat-icon class="btn-edit secondary-text">remove_red_eye</mat-icon>
+                                                    </a>
+                                                    <a (click)="openEditLine2Dialog(planning)">
+                                                        <mat-icon class="btn-edit secondary-text">edit</mat-icon>
+                                                    </a>
+                                                    <a (click)="deleteLine2RecordId(planning.id)">
+                                                        <mat-icon class="btn-remove secondary-text">delete_forever</mat-icon>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="lineTable2.length">
+                                            <tr>
+                                                <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
+                                                <td class="total" style="width: 50px">TOTAL</td>
+                                                <td class="total" style="width: 350px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" class="total" style="width: 50px">{{ line2TotalMT }}</td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 150px"></td>
+                                                <td class="total" style="width: 100px"></td>
+                                                <td class="total" style="width: 100px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px">{{ line2TotalTP }}</td>
+                                                <!-- <td style="width: 300px">{{ planning.remarks }}</td> -->
+                                                <td class="total"></td>
                                             </tr>
                                         </ng-container>
                                     </tbody>
@@ -215,6 +340,7 @@
 
                                     <div fxLayout="row" fxLayoutAlign="start center">
                                         <button
+                                            (click)="openAddLine3Dialog()"
                                             mat-icon-button
                                         >
                                             <mat-icon> add_circle_outline </mat-icon>
@@ -237,14 +363,15 @@
                                             <th class="class-th" style="width: 50px"> CARGILL </th>
                                             <th class="class-th" style="width: 50px"> SFC </th>
                                             <th class="class-th" style="width: 50px"> TIME TO PRODUCE </th>
-                                            <th class="class-th" style="width: 300px"> REMARKS </th>
+                                            <!-- <th class="class-th" style="width: 300px"> REMARKS </th> -->
+                                            <th class="class-th"> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <ng-container>
                                             <tr *ngFor="let planning of planningLine3; let i = index">
                                                 <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
-                                                <td style="width: 50px">{{ planning.sku }}</td>
+                                                <td style="width: 50px">{{ planning.skuCode }}</td>
                                                 <td style="width: 350px">{{ planning.description }}</td>
                                                 <td style="width: 50px">{{ planning.form }}</td>
                                                 <td style="width: 50px">{{ planning.mt }}</td>
@@ -256,7 +383,37 @@
                                                 <td style="width: 50px">{{ planning.accountability }}</td>
                                                 <td style="width: 50px">{{ planning.delayStatus }}</td>
                                                 <td style="width: 50px">{{ planning.timeProduce }}</td>
-                                                <td style="width: 300px">{{ planning.remarks }}</td>
+                                                <!-- <td style="width: 300px">{{ planning.remarks }}</td> -->
+                                                <td class="class-action">
+                                                    <a (click)="openViewLine3Dialog(planning)">
+                                                        <mat-icon class="btn-edit secondary-text">remove_red_eye</mat-icon>
+                                                    </a>
+                                                    <a (click)="openEditLine3Dialog(planning)">
+                                                        <mat-icon class="btn-edit secondary-text">edit</mat-icon>
+                                                    </a>
+                                                    <a (click)="deleteLine3RecordId(planning.id)">
+                                                        <mat-icon class="btn-remove secondary-text">delete_forever</mat-icon>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="lineTable3.length">
+                                            <tr>
+                                                <!-- <td style="width: 70px">{{ planning.planningId }}</td> -->
+                                                <td class="total" style="width: 50px">TOTAL</td>
+                                                <td class="total" style="width: 350px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" class="total" style="width: 50px">{{ line3TotalMT }}</td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 150px"></td>
+                                                <td class="total" style="width: 100px"></td>
+                                                <td class="total" style="width: 100px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px"></td>
+                                                <td class="total" style="width: 50px">{{ line3TotalTP }}</td>
+                                                <!-- <td style="width: 300px">{{ planning.remarks }}</td> -->
+                                                <td class="total"></td>
                                             </tr>
                                         </ng-container>
                                     </tbody>

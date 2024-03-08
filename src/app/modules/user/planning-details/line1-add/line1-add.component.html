@@ -3,7 +3,7 @@
     <mat-toolbar matDialogTitle class="dialog-header mat-accent m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start">
-                <span class="title dialog-title"> PLANNING REQUEST FORM </span>
+                <span class="title dialog-title"> LINE 1 ADD FORM </span>
             </div>
             <div fxLayout="row" fxLayoutAlign="end">
                 <button
@@ -20,7 +20,7 @@
     <div mat-dialog-content class="dialog-content m-6">
         <form [formGroup]="postDataForm" (ngSubmit)="onSubmit()">
             <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <!-- <mat-form-field class="mat-form-size pr-2" fxFlex="25">
                     <mat-label>SKU</mat-label>
                     <mat-select
                         [(ngModel)]="productId"
@@ -35,25 +35,55 @@
                         </mat-option>
                     </mat-select>
                     <mat-error>Please select SKU - error!</mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25" [class.hidden]="!showHide">
                     <mat-label>Planned ID</mat-label>
                     <input
                         matInput
                         formControlName="planningId"
+                        [(ngModel)]="planningById"
+                        [readonly]="true"
                         required
                     />
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
-                    <mat-label>Planned Request ID</mat-label>
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25">
+                    <mat-label>SKU</mat-label>
+                    <mat-select
+                        [(ngModel)]="productId"
+                        formControlName="sku"
+                        (selectionChange)="onProductSelectionChange(productId)"
+                        required
+                    >
+                        <mat-select-filter 
+                            [placeholder]="'Search SKU'" 
+                            [displayMember]="'code'" 
+                            [array]="productionOptions" 
+                            (filteredReturn)="productList =$event"
+                        ></mat-select-filter>
+                        <mat-option [value]=""> None</mat-option>
+                        <mat-option
+                            *ngFor="let options of productList"
+                            [value]="options.id"
+                        >
+                            {{ options.code }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25" [class.hidden]="!showHide">
+                    <mat-label>SKU Code</mat-label>
                     <input
                         matInput
-                        formControlName="planningRequestId"
+                        formControlName="skuCode"
+                        [(ngModel)]="skuCode"
+                        [readonly]="true"
                         required
                     />
+                    <mat-icon matSuffix class="secondary-text">money</mat-icon>
                 </mat-form-field>
+                
 
                 <mat-form-field class="mat-form-size" fxFlex="75">
                     <mat-label>Description</mat-label>
@@ -69,7 +99,7 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25">
                     <mat-label>Form</mat-label>
                     <input
                         matInput
@@ -79,7 +109,7 @@
                     <mat-icon matSuffix class="secondary-text">money</mat-icon>
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="20">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="19">
                     <mat-label>MT</mat-label>
                     <input
                         matInput
@@ -89,7 +119,7 @@
                     />
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="20">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="19">
                     <mat-label>Actual</mat-label>
                     <input
                         matInput
@@ -98,7 +128,7 @@
                     />
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="20">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="19">
                     <mat-label>Effective Capacity</mat-label>
                     <input
                         matInput
@@ -108,7 +138,7 @@
                     <mat-icon matSuffix class="secondary-text">money</mat-icon>
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size" fxFlex="15">
+                <mat-form-field class="mat-form-size" fxFlex="18">
                     <mat-label>DieSize Thickness</mat-label>
                     <input
                         matInput
@@ -124,7 +154,7 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25">
                     <mat-label>Change Over</mat-label>
                     <input
                         matInput
@@ -133,7 +163,7 @@
                     <mat-icon matSuffix class="secondary-text">money</mat-icon>
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25">
                     <mat-label>Uncontrollable</mat-label>
                     <input
                         matInput
@@ -142,7 +172,7 @@
                     <mat-icon matSuffix class="secondary-text">money</mat-icon>
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25">
                     <mat-label>Cargill</mat-label>
                     <input
                         matInput
@@ -162,7 +192,7 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field class="mat-form-size pr-8" fxFlex="25">
+                <mat-form-field class="mat-form-size pr-2" fxFlex="25">
                     <mat-label>Time to Produce</mat-label>
                     <input
                         matInput
@@ -173,11 +203,16 @@
                 
                 <mat-form-field class="mat-form-size" fxFlex="75">
                     <mat-label>Remarks</mat-label>
-                    <textarea 
+                    <input
+                        matInput
+                        formControlName="remarks"
+                    />
+                    <mat-icon matSuffix class="secondary-text">money</mat-icon>
+                    <!-- <textarea 
                         matInput
                         formControlName="remarks"
                         rows="4"
-                    ></textarea>
+                    ></textarea> -->
                 </mat-form-field>
             </div>
     
