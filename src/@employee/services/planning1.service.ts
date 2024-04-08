@@ -10,8 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class Planning1Service {
 
-  private url: "https://localhost:7040/api/PlanningRequest";
-  private urlOnly = "https://localhost:7040/api";
+  private url: "https://localhost:7040/api";
 
   constructor ( private http: HttpClient ) 
   {
@@ -19,40 +18,40 @@ export class Planning1Service {
   }
 
   // Get Planning list with Descending order
-  public getPlanningList(sortOrder: string = 'asc'): Observable<PlanningList[]> {
-    return this.http.get<PlanningList[]>(`${environment.apiUrl}/PlanningRequest?sortOrder=${sortOrder}`);
+  getPlanningList(sortOrder: string = 'asc'): Observable<PlanningList[]> {
+    return this.http.get<PlanningList[]>(`https://localhost:7040/api/PlanningRequest?sortOrder=${sortOrder}`);
   }
   
   // Get Planning by ID
-  public getPlanningId(id: number): Observable<any[]>{
-    return this.http.get<PlanningById[]>(`${environment.apiUrl}/PlanningRequest/${id}`);
+  getPlanningId(id: number): Observable<any[]>{
+    return this.http.get<PlanningById[]>(`https://localhost:7040/api/PlanningRequest/${id}`);
   }
 
   // Create Planning
-  public createPlanning(data: PlanningPost): Observable<PlanningPost>{
-    return this.http.post<PlanningPost>(`${environment.apiUrl}/PlanningRequest`, data);
+  createPlanning(data: PlanningPost): Observable<PlanningPost>{
+    return this.http.post<PlanningPost>(`https://localhost:7040/api/PlanningRequest`, data);
   }
 
   // Create Planning Line 1
-  public createPlanningLine1(data: Line): Observable<Line>{
-    return this.http.post<Line>(`${environment.apiUrl}/PlanningRequest/line1`, data);
+  createPlanningLine1(data: Line): Observable<Line>{
+    return this.http.post<Line>(`https://localhost:7040/api/PlanningRequest/line1`, data);
   }
 
   // Create Planning Line 2
-  public createPlanningLine2(data: Line): Observable<Line>{
-    return this.http.post<Line>(`${environment.apiUrl}/PlanningRequest/line2`, data);
+  createPlanningLine2(data: Line): Observable<Line>{
+    return this.http.post<Line>(`https://localhost:7040/api/PlanningRequest/line2`, data);
   }
 
   // Create Planning Line 3
-  public createPlanningLine3(data: Line): Observable<Line>{
-    return this.http.post<Line>(`${environment.apiUrl}/PlanningRequest/line3`, data);
+  createPlanningLine3(data: Line): Observable<Line>{
+    return this.http.post<Line>(`https://localhost:7040/api/PlanningRequest/line3`, data);
   }
 
   // Get Planning Line 1
   getPlanningLine1ById(id:number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .get(`${environment.apiUrl}/PlanningRequest/line1/${id}`)
+        .get(`https://localhost:7040/api/PlanningRequest/line1/${id}`)
         .subscribe((response: any) => {
             resolve(response);
         }, reject);
@@ -63,7 +62,7 @@ export class Planning1Service {
   getPlanningLine2ById(id:number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .get(`${environment.apiUrl}/PlanningRequest/line2/${id}`)
+        .get(`https://localhost:7040/api/PlanningRequest/line2/${id}`)
         .subscribe((response: any) => {
             resolve(response);
         }, reject);
@@ -74,7 +73,7 @@ export class Planning1Service {
   getPlanningLine3ById(id:number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .get(`${environment.apiUrl}/PlanningRequest/line3/${id}`)
+        .get(`https://localhost:7040/api/PlanningRequest/line3/${id}`)
         .subscribe((response: any) => {
             resolve(response);
         }, reject);
@@ -82,34 +81,34 @@ export class Planning1Service {
   }
 
   // Edit Planning Line 1
-  public editPlanningLine1(id: number, data: Line): Observable<Line>{
-    return this.http.put<Line>(`${environment.apiUrl}/PlanningRequest/line1/${id}`, data);
+  editPlanningLine1(id: number, data: Line): Observable<Line>{
+    return this.http.put<Line>(`https://localhost:7040/api/PlanningRequest/line1/${id}`, data);
   }
 
   // Edit Planning Line 2
-  public editPlanningLine2(id: number, data: Line): Observable<Line>{
-    return this.http.put<Line>(`${environment.apiUrl}/PlanningRequest/line2/${id}`, data);
+  editPlanningLine2(id: number, data: Line): Observable<Line>{
+    return this.http.put<Line>(`https://localhost:7040/api/PlanningRequest/line2/${id}`, data);
   }
 
   // Edit Planning Line 3
-  public editPlanningLine3(id: number, data: Line): Observable<Line>{
-    return this.http.put<Line>(`${environment.apiUrl}/PlanningRequest/line3/${id}`, data);
+  editPlanningLine3(id: number, data: Line): Observable<Line>{
+    return this.http.put<Line>(`https://localhost:7040/api/PlanningRequest/line3/${id}`, data);
   }
 
   // Edit Planning by ID
-  public editPlanningById(id: number, data: PlanningById): Observable<PlanningById[]>{
-    return this.http.put<PlanningById[]>(`${environment.apiUrl}/PlanningRequest/${id}`, data);
+  editPlanningById(id: number, data: PlanningById): Observable<PlanningById[]>{
+    return this.http.put<PlanningById[]>(`https://localhost:7040/api/PlanningRequest/${id}`, data);
   }
 
   // Delete Planning by ID
-  public deletePlanningById(id: number): Observable<any[]>{
-    return this.http.delete<PlanningList[]>(`${environment.apiUrl}/PlanningRequest/${id}`);
+  deletePlanningById(id: number): Observable<any[]>{
+    return this.http.delete<PlanningList[]>(`https://localhost:7040/api/PlanningRequest/${id}`);
   }
 
   getProductForOptions(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .get(`${environment.apiUrl}/ProductClassification/list`)
+        .get(`https://localhost:7040/api/ProductClassification/list`)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
@@ -119,7 +118,7 @@ export class Planning1Service {
   getProducIdOptions(productId: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .get(`${environment.apiUrl}/ProductClassification/${productId}`)
+        .get(`https://localhost:7040/api/ProductClassification/${productId}`)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
@@ -129,13 +128,11 @@ export class Planning1Service {
   getPlanningById(id:number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .get(`${environment.apiUrl}/PlanningRequest/${id}`)
+        .get(`https://localhost:7040/api/PlanningRequest/${id}`)
         .subscribe((response: any) => {
             resolve(response);
         }, reject);
     });
   }
-
-  
 
 }

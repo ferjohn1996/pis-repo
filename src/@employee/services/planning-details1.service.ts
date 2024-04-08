@@ -10,6 +10,8 @@ export class PlanningDetails1Service implements Resolve<any> {
     data: any;
     onDetailsChanged: BehaviorSubject<any>;
 
+    private url: "https://localhost:7040/api";
+
     /**
      * Constructor
      *
@@ -46,7 +48,7 @@ export class PlanningDetails1Service implements Resolve<any> {
                 resolve(false);
             } else {
                 this._httpClient
-                    .get(`${environment.apiUrl}/PlanningRequest/${this.routeParams.id}`)
+                    .get(`https://localhost:7040/api/PlanningRequest/${this.routeParams.id}`)
                     .subscribe((response: any) => {
                         this.data = response;
                         this.onDetailsChanged.next(this.data);
@@ -58,17 +60,17 @@ export class PlanningDetails1Service implements Resolve<any> {
 
 
     // Delete Planning Line 1 by ID
-    public deleteLine1ById(id: number): Observable<any[]>{
-        return this._httpClient.delete<any[]>(`${environment.apiUrl}/PlanningRequest/line1/${id}`);
+    deleteLine1ById(id: number): Observable<any[]>{
+        return this._httpClient.delete<any[]>(`https://localhost:7040/api/PlanningRequest/line1/${id}`);
     }
 
     // Delete Planning Line 2 by ID
-    public deleteLine2ById(id: number): Observable<any[]>{
-        return this._httpClient.delete<any[]>(`${environment.apiUrl}/PlanningRequest/line2/${id}`);
+    deleteLine2ById(id: number): Observable<any[]>{
+        return this._httpClient.delete<any[]>(`https://localhost:7040/api/PlanningRequest/line2/${id}`);
     }
 
     // Delete Planning Line 3 by ID
-    public deleteLine3ById(id: number): Observable<any[]>{
-        return this._httpClient.delete<any[]>(`${environment.apiUrl}/PlanningRequest/line3/${id}`);
+    deleteLine3ById(id: number): Observable<any[]>{
+        return this._httpClient.delete<any[]>(`https://localhost:7040/api/PlanningRequest/line3/${id}`);
     }
 }
